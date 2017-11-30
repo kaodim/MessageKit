@@ -58,6 +58,9 @@ public enum MessageData {
     /// A location with text
     case customLocation(CLLocation, NSAttributedString?)
 
+    /// A file with text
+    case customFile(UIImage, NSAttributedString)
+
     // MARK: - Not supported yet
 
 //    case audio(Data)

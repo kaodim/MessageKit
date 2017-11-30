@@ -76,9 +76,11 @@ final class SampleData {
 
     var now = Date()
 
-    let messageTypes = ["CustomPhoto", "CustomPhotoText", "CustomLocation", "CustomLocationText"]
+    let messageTypes = ["CustomPhoto", "CustomLocation", "CustomPhotoText", "CustomLocationText", "CustomFile"]
 
     let attributes = ["Font1", "Font2", "Font3", "Font4", "Color", "Combo"]
+
+    let fileNames = ["file_1.pdf", "file2.pptx", "file_improtant_with_long_message_text.pdf"]
 
     let locations: [CLLocation] = [
         CLLocation(latitude: 37.3118, longitude: -122.0312),
@@ -154,6 +156,7 @@ final class SampleData {
         let randomMessageType = Int(arc4random_uniform(UInt32(messageTypes.count)))
         let randomPhotoDesc = Int(arc4random_uniform(UInt32(messagePhotoDescriptions.count)))
         let randomNumberLocation = Int(arc4random_uniform(UInt32(locations.count)))
+        let randomFileName = Int(arc4random_uniform(UInt32(fileNames.count)))
         let uniqueID = NSUUID().uuidString
         let sender = senders[randomNumberSender]
         let date = dateAddingRandomTime()
@@ -177,10 +180,18 @@ final class SampleData {
             let location = locations[randomNumberLocation]
             let description = messagePhotoDescriptions[randomPhotoDesc]
             let attributedText = NSAttributedString(string: description, attributes: [
-                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15.0),
                 NSAttributedStringKey.foregroundColor: UIColor.darkGray,
             ])
             return MockMessage(location: location, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
+        case "CustomFile":
+            let fileName = fileNames[randomFileName]
+            let icon = messageImages[randomNumberImage]
+            let attributedText = NSAttributedString(string: fileName, attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray
+            ])
+            return MockMessage(icon: icon, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
         default:
             fatalError("Unrecognized mock message type")
         }

@@ -51,6 +51,15 @@ public protocol MediaMessageLayoutDelegate: MessagesLayoutDelegate {
     /// rect using the `maxWidth` and `.greatestFiniteMagnitude` for the height.
     func heightForMedia(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat
 
+    /// Specifies the height for a `MessageContainerView`.
+    ///
+    /// - Parameters:
+    ///   - message: The `MessageType` that will be displayed by this cell.
+    ///   - indexPath: The `IndexPath` of the cell.
+    ///   - maxWidth: The max available width for the `MessageContainerView` respecting the cell's other content.
+    ///   - messagesCollectionView: The `MessagesCollectionView` in which this cell will be displayed.
+    /// - Returns: Hieght of file document bubble
+    func heightForFileDocument(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat
 }
 
 public extension MediaMessageLayoutDelegate {
@@ -83,5 +92,8 @@ public extension MediaMessageLayoutDelegate {
             return 0
         }
     }
-    
+
+    func heightForFileDocument(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return maxWidth * 0.25
+    }
 }
