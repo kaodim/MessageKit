@@ -116,6 +116,7 @@ open class MessagesViewController: UIViewController {
 
         messagesCollectionView.register(TextMessageCell.self)
         messagesCollectionView.register(MediaMessageCell.self)
+        messagesCollectionView.register(CustomPhotoMessageCell.self)
         messagesCollectionView.register(LocationMessageCell.self)
 
         messagesCollectionView.register(MessageFooterView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter)
@@ -237,8 +238,11 @@ extension MessagesViewController: UICollectionViewDataSource {
     	    let cell = messagesCollectionView.dequeueReusableCell(LocationMessageCell.self, for: indexPath)
             cell.configure(with: message, at: indexPath, and: messagesCollectionView)
             return cell
+        case .customPhoto:
+            let cell = messagesCollectionView.dequeueReusableCell(CustomPhotoMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
         }
-
     }
 
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

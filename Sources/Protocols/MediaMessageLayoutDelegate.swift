@@ -64,6 +64,21 @@ public extension MediaMessageLayoutDelegate {
         case .photo(let image), .video(_, let image):
             let boundingRect = CGRect(origin: .zero, size: CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
             return AVMakeRect(aspectRatio: image.size, insideRect: boundingRect).height
+        case .customPhoto(let image, let attributedText):
+            let boundingRect = CGRect(origin: .zero, size: CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+            let mediaHeight = AVMakeRect(aspectRatio: image.size, insideRect: boundingRect).height
+
+            guard let attributed = attributedText, !attributed.string.isEmpty else {
+                return mediaHeight
+            }
+
+            let dict = attributed.attributes(at: 0, longestEffectiveRange: nil, in: NSRange.init(location: 0, length: attributed.length))
+            guard let font = dict[NSAttributedStringKey.font] as? UIFont else {
+                return mediaHeight
+            }
+
+            let textHeight: CGFloat = attributed.string.height(considering: maxWidth, and: font)
+            return mediaHeight + textHeight
         default:
             return 0
         }

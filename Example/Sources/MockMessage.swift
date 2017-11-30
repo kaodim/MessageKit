@@ -65,4 +65,7 @@ struct MockMessage: MessageType {
         self.init(data: .emoji(emoji), sender: sender, messageId: messageId, date: date)
     }
 
+    init(image: UIImage, attributedText: NSAttributedString?, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .customPhoto(image, attributedText), sender: sender, messageId: messageId, date: date)
+    }
 }
