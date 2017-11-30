@@ -55,5 +55,24 @@ public extension LocationMessageLayoutDelegate {
     func widthForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return maxWidth
     }
-    
+
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        switch message.data {
+        case .customLocation(_, let attributedText):
+            let boundingHeight = maxWidth
+            guard let attributed = attributedText, !attributed.string.isEmpty else {
+                return boundingHeight
+            }
+
+            let dict = attributed.attributes(at: 0, longestEffectiveRange: nil, in: NSRange.init(location: 0, length: attributed.length))
+            guard let font = dict[NSAttributedStringKey.font] as? UIFont else {
+                return boundingHeight
+            }
+
+            let textHeight: CGFloat = attributed.string.height(considering: maxWidth, and: font)
+            return boundingHeight + textHeight
+        default:
+            return 0
+        }
+    }
 }

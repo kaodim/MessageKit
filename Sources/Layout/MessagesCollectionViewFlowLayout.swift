@@ -499,6 +499,13 @@ private extension MessagesCollectionViewFlowLayout {
             let width = layoutDelegate.widthForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
             let height = layoutDelegate.heightForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
             messageContainerSize = CGSize(width: width, height: height)
+        case .customLocation:
+            guard let layoutDelegate = messagesLayoutDelegate as? LocationMessageLayoutDelegate else {
+                fatalError("Layout object attempting to size location message type and LocationMessageLayoutDelegate is not set.")
+            }
+            let width = layoutDelegate.widthForLocation(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
+            let height = layoutDelegate.heightForLocation(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
+            messageContainerSize = CGSize(width: width, height: height)
         }
         
         return messageContainerSize

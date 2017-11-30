@@ -76,7 +76,7 @@ final class SampleData {
 
     var now = Date()
 
-    let messageTypes = ["CustomPhoto", "CustomPhotoText"]
+    let messageTypes = ["CustomPhoto", "CustomPhotoText", "CustomLocation", "CustomLocationText"]
 
     let attributes = ["Font1", "Font2", "Font3", "Font4", "Color", "Combo"]
 
@@ -153,12 +153,18 @@ final class SampleData {
         let randomNumberImage = Int(arc4random_uniform(UInt32(messageImages.count)))
         let randomMessageType = Int(arc4random_uniform(UInt32(messageTypes.count)))
         let randomPhotoDesc = Int(arc4random_uniform(UInt32(messagePhotoDescriptions.count)))
+        let randomNumberLocation = Int(arc4random_uniform(UInt32(locations.count)))
         let uniqueID = NSUUID().uuidString
         let sender = senders[randomNumberSender]
         let date = dateAddingRandomTime()
 
-
         switch messageTypes[randomMessageType] {
+        case "CustomPhoto":
+            let image = messageImages[randomNumberImage]
+            return MockMessage(image: image, attributedText: nil, sender: sender, messageId: uniqueID, date: date)
+        case "CustomLocation":
+            let location = locations[randomNumberLocation]
+            return MockMessage(location: location, attributedText: nil, sender: sender, messageId: uniqueID, date: date)
         case "CustomPhotoText":
             let image = messageImages[randomNumberImage]
             let description = messagePhotoDescriptions[randomPhotoDesc]
@@ -167,9 +173,14 @@ final class SampleData {
                 NSAttributedStringKey.foregroundColor: UIColor.darkGray,
             ])
             return MockMessage(image: image, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
-        case "CustomPhoto":
-            let image = messageImages[randomNumberImage]
-            return MockMessage(image: image, attributedText: nil, sender: sender, messageId: uniqueID, date: date)
+        case "CustomLocationText":
+            let location = locations[randomNumberLocation]
+            let description = messagePhotoDescriptions[randomPhotoDesc]
+            let attributedText = NSAttributedString(string: description, attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray,
+            ])
+            return MockMessage(location: location, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
         default:
             fatalError("Unrecognized mock message type")
         }

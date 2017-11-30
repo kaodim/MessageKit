@@ -68,4 +68,8 @@ struct MockMessage: MessageType {
     init(image: UIImage, attributedText: NSAttributedString?, sender: Sender, messageId: String, date: Date) {
         self.init(data: .customPhoto(image, attributedText), sender: sender, messageId: messageId, date: date)
     }
+
+    init(location: CLLocation, attributedText: NSAttributedString?, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .customLocation(location, attributedText), sender: sender, messageId: messageId, date: date)
+    }
 }
