@@ -88,6 +88,20 @@ public extension MediaMessageLayoutDelegate {
 
             let textHeight: CGFloat = attributed.string.height(considering: maxWidth, and: font)
             return mediaHeight + textHeight
+        case .customImage(_, let attributedText):
+            let defaultHeight = maxWidth * 0.75
+
+            guard let attributed = attributedText, !attributed.string.isEmpty else {
+                return defaultHeight
+            }
+
+            let dict = attributed.attributes(at: 0, longestEffectiveRange: nil, in: NSRange.init(location: 0, length: attributed.length))
+            guard let font = dict[NSAttributedStringKey.font] as? UIFont else {
+                return defaultHeight
+            }
+
+            let textHeight: CGFloat = attributed.string.height(considering: maxWidth, and: font)
+            return defaultHeight + textHeight
         default:
             return 0
         }

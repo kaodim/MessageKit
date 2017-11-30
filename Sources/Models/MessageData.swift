@@ -61,6 +61,9 @@ public enum MessageData {
     /// A file with text
     case customFile(UIImage, NSAttributedString)
 
+    /// An image from URL
+    case customImage(URL, NSAttributedString?)
+
     // MARK: - Not supported yet
 
 //    case audio(Data)

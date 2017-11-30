@@ -75,6 +75,11 @@
 		B7A03F731F866A06006AEF79 /* MessageKit+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A03F701F866A06006AEF79 /* MessageKit+Availability.swift */; };
 		B7A03F751F866A06006AEF79 /* MessageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B7A03F721F866A06006AEF79 /* MessageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7A03F7B1F866B85006AEF79 /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */; };
+		D505B54B1FD04C26005EB4F8 /* CustomPhotoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505B5481FD04C26005EB4F8 /* CustomPhotoMessageCell.swift */; };
+		D505B54C1FD04C26005EB4F8 /* CustomFileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505B5491FD04C26005EB4F8 /* CustomFileMessageCell.swift */; };
+		D505B54D1FD04C26005EB4F8 /* CustomLocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505B54A1FD04C26005EB4F8 /* CustomLocationMessageCell.swift */; };
+		D505B5531FD0579A005EB4F8 /* UIImageView+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505B5521FD0579A005EB4F8 /* UIImageView+Cache.swift */; };
+		D505B5551FD057A4005EB4F8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505B5541FD057A4005EB4F8 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +164,11 @@
 		B7A03F711F866A06006AEF79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7A03F721F866A06006AEF79 /* MessageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageKit.h; sourceTree = "<group>"; };
 		B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D505B5481FD04C26005EB4F8 /* CustomPhotoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPhotoMessageCell.swift; sourceTree = "<group>"; };
+		D505B5491FD04C26005EB4F8 /* CustomFileMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFileMessageCell.swift; sourceTree = "<group>"; };
+		D505B54A1FD04C26005EB4F8 /* CustomLocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLocationMessageCell.swift; sourceTree = "<group>"; };
+		D505B5521FD0579A005EB4F8 /* UIImageView+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Cache.swift"; sourceTree = "<group>"; };
+		D505B5541FD057A4005EB4F8 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +193,9 @@
 		2EB618F01F84676A007FBA0E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D505B5491FD04C26005EB4F8 /* CustomFileMessageCell.swift */,
+				D505B54A1FD04C26005EB4F8 /* CustomLocationMessageCell.swift */,
+				D505B5481FD04C26005EB4F8 /* CustomPhotoMessageCell.swift */,
 				B7A03F381F866946006AEF79 /* LocationMessageCell.swift */,
 				B7A03F391F866946006AEF79 /* MediaMessageCell.swift */,
 				B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */,
@@ -325,6 +338,7 @@
 				B7A03F641F8669EB006AEF79 /* UICollectionView+Extensions.swift */,
 				B7A03F651F8669EB006AEF79 /* UIColor+Extensions.swift */,
 				B7A03F661F8669EB006AEF79 /* UIView+Extensions.swift */,
+				D505B5521FD0579A005EB4F8 /* UIImageView+Cache.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -404,6 +418,7 @@
 		B096439E1F295DD7004D0129 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				D505B5541FD057A4005EB4F8 /* ImageCache.swift */,
 				B7A03F711F866A06006AEF79 /* Info.plist */,
 				B7A03F721F866A06006AEF79 /* MessageKit.h */,
 				B7A03F701F866A06006AEF79 /* MessageKit+Availability.swift */,
@@ -557,20 +572,25 @@
 				B7A03F3A1F866946006AEF79 /* TextMessageCell.swift in Sources */,
 				B7A03F191F86682C006AEF79 /* MessagesCollectionViewLayoutAttributes.swift in Sources */,
 				B7A03F461F86694F006AEF79 /* AvatarView.swift in Sources */,
+				D505B5531FD0579A005EB4F8 /* UIImageView+Cache.swift in Sources */,
 				B7A03F3D1F866946006AEF79 /* MediaMessageCell.swift in Sources */,
 				B7A03F331F866940006AEF79 /* MessageDateHeaderView.swift in Sources */,
 				B7A03F2E1F866895006AEF79 /* MessageData.swift in Sources */,
 				B7A03F7B1F866B85006AEF79 /* MessageCollectionViewCell.swift in Sources */,
 				B7A03F6B1F8669EB006AEF79 /* UIColor+Extensions.swift in Sources */,
 				B7A03F5E1F8669CA006AEF79 /* MessagesLayoutDelegate.swift in Sources */,
+				D505B5551FD057A4005EB4F8 /* ImageCache.swift in Sources */,
+				D505B54D1FD04C26005EB4F8 /* CustomLocationMessageCell.swift in Sources */,
 				B7A03F261F866895006AEF79 /* MessageKitDateFormatter.swift in Sources */,
 				8962AC9A1F87ABB20030B058 /* MockMessagesDataSource.swift in Sources */,
 				B7A03F6D1F8669EB006AEF79 /* Bundle+Extensions.swift in Sources */,
 				B7A03F6A1F8669EB006AEF79 /* UICollectionView+Extensions.swift in Sources */,
 				8962AC9C1F87ABC60030B058 /* MockMessage.swift in Sources */,
+				D505B54C1FD04C26005EB4F8 /* CustomFileMessageCell.swift in Sources */,
 				B7A03F611F8669CA006AEF79 /* MessagesDataSource.swift in Sources */,
 				B7A03F6E1F8669EB006AEF79 /* NSAttributedString+Extensions.swift in Sources */,
 				B7A03F471F86694F006AEF79 /* MessageLabel.swift in Sources */,
+				D505B54B1FD04C26005EB4F8 /* CustomPhotoMessageCell.swift in Sources */,
 				B7A03F5F1F8669CA006AEF79 /* MessageLabelDelegate.swift in Sources */,
 				B7A03F4C1F86694F006AEF79 /* PlayButtonView.swift in Sources */,
 				B7A03F5A1F8669CA006AEF79 /* MediaMessageLayoutDelegate.swift in Sources */,

@@ -240,7 +240,7 @@ extension MessagesViewController: UICollectionViewDataSource {
     	    let cell = messagesCollectionView.dequeueReusableCell(LocationMessageCell.self, for: indexPath)
             cell.configure(with: message, at: indexPath, and: messagesCollectionView)
             return cell
-        case .customPhoto:
+        case .customPhoto, .customImage:
             let cell = messagesCollectionView.dequeueReusableCell(CustomPhotoMessageCell.self, for: indexPath)
             cell.configure(with: message, at: indexPath, and: messagesCollectionView)
             return cell

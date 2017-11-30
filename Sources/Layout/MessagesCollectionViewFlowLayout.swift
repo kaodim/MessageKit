@@ -513,6 +513,13 @@ private extension MessagesCollectionViewFlowLayout {
             let width = layoutDelegate.widthForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
             let height = layoutDelegate.heightForFileDocument(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
             messageContainerSize = CGSize(width: width, height: height)
+        case .customImage:
+            guard let layoutDelegate = messagesLayoutDelegate as? MediaMessageLayoutDelegate else {
+                fatalError("Layout object attempting to size media message type and MediaMessageLayoutDelegate is not set.")
+            }
+            let width = layoutDelegate.widthForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
+            let height = layoutDelegate.heightForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
+            messageContainerSize = CGSize(width: width, height: height)
         }
 
         return messageContainerSize

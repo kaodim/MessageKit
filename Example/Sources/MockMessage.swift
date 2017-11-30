@@ -76,4 +76,8 @@ struct MockMessage: MessageType {
     init(icon: UIImage, attributedText: NSAttributedString, sender: Sender, messageId: String, date: Date) {
         self.init(data: .customFile(icon, attributedText), sender: sender, messageId: messageId, date: date)
     }
+
+    init(imageURL: URL, attributedText: NSAttributedString?, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .customImage(imageURL, attributedText), sender: sender, messageId: messageId, date: date)
+    }
 }
