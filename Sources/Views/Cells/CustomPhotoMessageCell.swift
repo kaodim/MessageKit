@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class CustomPhotoMessageCell: MessageCollectionViewCell<UIView> {
+open class CustomPhotoMessageCell: MessageCollectionViewCell {
     open override class func reuseIdentifier() -> String { return "messagekit.cell.customphotomessage" }
 
     // MARK: - Properties
@@ -35,10 +35,10 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell<UIView> {
         return activityIndicator
     }()
 
-    override func setupSubviews() {
+    override open func setupSubviews() {
         super.setupSubviews()
-        messageContentView.addSubview(customImageView)
-        messageContentView.addSubview(customLabel)
+        messageContainerView.addSubview(customImageView)
+        messageContainerView.addSubview(customLabel)
         customImageView.addSubview(activityIndicator)
         setupConstraints()
     }
@@ -67,14 +67,14 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell<UIView> {
         switch message.data {
         case .customPhoto(let image, let attributedText):
             activityIndicator.stopAnimating()
-            customImageView.frame = UIEdgeInsetsInsetRect(messageContentView.bounds, imageInset)
+            customImageView.frame = UIEdgeInsetsInsetRect(messageContainerView.bounds, imageInset)
             customImageView.image = image
             customLabel.attributedText = attributedText
     
             if let attributed = attributedText, !attributed.string.isEmpty {
                 let labelWidth: CGFloat = customImageView.bounds.width - 16.0
                 let labelHeight: CGFloat = attributed.height(considering: labelWidth) + 16.0
-                let contentHeight: CGFloat = messageContentView.bounds.height
+                let contentHeight: CGFloat = messageContainerView.bounds.height
                 let contentPaddings: CGFloat = 15.0
                 customImageView.frame.size.height = contentHeight - labelHeight - contentPaddings
                 customLabel.frame = CGRect(
@@ -87,7 +87,7 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell<UIView> {
                 customLabel.frame = .zero
             }
         case .customImage(let url, let attributedText):
-            customImageView.frame = UIEdgeInsetsInsetRect(messageContentView.bounds, imageInset)
+            customImageView.frame = UIEdgeInsetsInsetRect(messageContainerView.bounds, imageInset)
             customImageView.downloadImageAsync(url: url, completion: {
                 self.activityIndicator.stopAnimating()
             })
@@ -96,7 +96,7 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell<UIView> {
             if let attributed = attributedText, !attributed.string.isEmpty {
                 let labelWidth: CGFloat = customImageView.bounds.width - 16.0
                 let labelHeight: CGFloat = attributed.height(considering: labelWidth) + 16.0
-                let contentHeight: CGFloat = messageContentView.bounds.height
+                let contentHeight: CGFloat = messageContainerView.bounds.height
                 let contentPaddings: CGFloat = 15.0
                 customImageView.frame.size.height = contentHeight - labelHeight - contentPaddings
                 customLabel.frame = CGRect(

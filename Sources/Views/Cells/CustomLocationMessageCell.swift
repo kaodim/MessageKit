@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-open class CustomLocationMessageCell: MessageCollectionViewCell<UIView> {
+open class CustomLocationMessageCell: MessageCollectionViewCell {
     open override class func reuseIdentifier() -> String { return "messagekit.cell.customlocation" }
 
     // MARK: - Properties
@@ -33,10 +33,10 @@ open class CustomLocationMessageCell: MessageCollectionViewCell<UIView> {
     
     open var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
-    override func setupSubviews() {
+    override open func setupSubviews() {
         super.setupSubviews()
-        messageContentView.addSubview(customImageView)
-        messageContentView.addSubview(customLabel)
+        messageContainerView.addSubview(customImageView)
+        messageContainerView.addSubview(customLabel)
         customImageView.addSubview(activityIndicator)
         setupConstraints()
     }
@@ -61,18 +61,18 @@ open class CustomLocationMessageCell: MessageCollectionViewCell<UIView> {
 
         switch message.data {
         case .customLocation(let location, let attributedText):
-            guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate as? LocationMessageDisplayDelegate else { return }
+            guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate else { return }
             let options = displayDelegate.snapshotOptionsForLocation(message: message, at: indexPath, in: messagesCollectionView)
             let annotationView = displayDelegate.annotationViewForLocation(message: message, at: indexPath, in: messagesCollectionView)
             let animationBlock = displayDelegate.animationBlockForLocation(message: message, at: indexPath, in: messagesCollectionView)
 
-            customImageView.frame = UIEdgeInsetsInsetRect(messageContentView.bounds, imageInset)
+            customImageView.frame = UIEdgeInsetsInsetRect(messageContainerView.bounds, imageInset)
             customLabel.attributedText = attributedText
 
             if let attributed = attributedText, !attributed.string.isEmpty {
                 let labelWidth: CGFloat = customImageView.bounds.width - 16.0
                 let labelHeight: CGFloat = attributed.height(considering: labelWidth) + 16.0
-                let contentHeight: CGFloat = messageContentView.bounds.height
+                let contentHeight: CGFloat = messageContainerView.bounds.height
                 let contentPaddings: CGFloat = 15.0
                 customImageView.frame.size.height = contentHeight - labelHeight - contentPaddings
                 customLabel.frame = CGRect(

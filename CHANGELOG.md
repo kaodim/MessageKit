@@ -6,10 +6,114 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 
 ## Upcoming release
 
+## [[Prerelease] 0.12.0](https://github.com/MessageKit/MessageKit/releases/tag/0.12.0)
+
+### Added
+
+- Added `reloadDataAndKeepOffset()` method to `MessagesCollectionView` to maintain the current position
+when reloading data.
+[#284](https://github.com/MessageKit/MessageKit/pull/284) by [@azurechen](https://github.com/azurechen).
+
+- Added `maintainPositionOnKeyboardFrameChanged: Bool` property to maintain the current position of the 
+`MessagesCollectionView` when the height of the `MessageInputBar` changes.
+[#340](https://github.com/MessageKit/MessageKit/pull/340) by [@KEN-chan](https://github.com/KEN-chan).
+
+- Added `detectorAttributes(for:and:at:)` method to `MessagesDisplayDelegate` allowing `DetectorType`
+attributes to be set outside of the cell.
+[#397](https://github.com/MessageKit/MessageKit/pull/397) by [@SD10](https://github.com/sd10).
+
 ### Fixed
 
-Fixes infinite loop when dismissing keyboard on iPhone X.
+- Fixed `indexPathForLastItem` bug when `numberOfSections` equal to 1. 
+[#395](https://github.com/MessageKit/MessageKit/issues/395) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+- Fixed `scrollToBottom(animated:)` not work in some situations.
+[#395](https://github.com/MessageKit/MessageKit/issues/395) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+- Fixed `.attributedText(NSAttributedString)` messages that were not using the `textColor` from the
+`MessagesDisplayDelegate` method.
+[#414](https://github.com/MessageKit/MessageKit/issues/414) by [@SD10](https://github.com/sd10).
+
+- Fixed a bug where new messages using `.attributedText(NSAttributedString)` have the incorrect font.
+[#412](https://github.com/MessageKit/MessageKit/issues/412) by [@SD10](https://github.com/sd10).
+
+
+### Changed
+
+- **Breaking Change** The `MessageLabel` properties `addressAttributes`, `dateAttributes`, `phoneNumberAttributes`,
+and `urlAttributes` are now read only. Please use `setAttributes(_:detector:)` to set these properties. 
+[#397](https://github.com/MessageKit/MessageKit/pull/397) by [@SD10](https://github.com/sd10).
+
+- **Breaking Change** Removed the generic constraint `<ContentView: UIView>` from `MessageCollectionViewCell`.
+[#391](https://github.com/MessageKit/MessageKit/pull/391) by [@SD10](https://github.com/sd10).
+
+- **Breaking Change** The `contentView` property has been renamed to `imageView` for `LocationMessageCell` and `MediaMessageCell`
+and `messageLabel` for `TextMessageCell`.
+[#391](https://github.com/MessageKit/MessageKit/pull/391) by [@SD10](https://github.com/sd10).
+
+- **Breaking Change** Changed the name of  `MessageInputBar`'s property `maxHeight` to `maxTextViewHeight` as the property is the max height the `InputTextView` can have, not the `MessageInputBar` itself.
+[#380](https://github.com/MessageKit/MessageKit/pull/380) by [@nathantannar4](https://github.com/nathantannar4).
+
+- **Breaking Change**  Adds a new view `contentView` of type `UIView` to the MessageInputBar to hold the main subviews of the `MessageInputBar`. Reduces complexity of constraints for easier testing/debugging.
+[#384](https://github.com/MessageKit/MessageKit/pull/384) by [@nathantannar4](https://github.com/nathantannar4).
+
+### Removed
+
+- **Breaking Change** Removed `scrollsToBottomOnFirstLayout` flag of `MessagesViewController`.
+[#395](https://github.com/MessageKit/MessageKit/pull/395) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+## [[Prerelease] 0.11.0](https://github.com/MessageKit/MessageKit/releases/tag/0.11.0)
+
+### Added
+
+- **Breaking Change** Added a top `InputStackView` to `MessageInputBar`. This adds the addition of the `.top` case to `InputStackView.Position`.
+[#320](https://github.com/MessageKit/MessageKit/issues/320) by [@nathantannar4](https://github.com/nathantannar4).
+
+- **Breaking Change** Added `AvatarPosition` and `avatarPosition(for:at:in)` to configure an
+`AvatarView`'s vertical and horizontal position in a `MessageCollectionViewCell`.
+[#322](https://github.com/MessageKit/MessageKit/pull/322) by [@SD10](https://github.com/sd10).
+
+- Added `shouldCacheLayoutAttributes(for:MessageType)-> Bool` method to `MessagesLayoutDelegate`
+to manage whether a `MessageType`'s layout information is cached or not.
+[#364](https://github.com/MessageKit/MessageKit/pull/322) by [@SD10](https://github.com/sd10).
+
+### Changed
+
+- **Breaking Change** The `cellTopLabel` and `cellBottomLabel` properties of `MessageCollectionViewCell` are no longer
+typed as `MessageLabel` and are now regular `UILabel`s.
+[#355](https://github.com/MessageKit/MessageKit/pull/355) by [@SD10](https://github.com/sd10).
+
+- All `DetectorType`s for `MessageLabel` are disabled by default.
+[#356](https://github.com/MessageKit/MessageKit/pull/356) by [@SD10](https://github.com/sd10).
+
+### Fixed
+
+- **Breaking Change** Fixed all instances of misspelled `inital` property. `Avatar.inital` has changed to `Avatar.initial` 
+and the initializer has changed from `public init(image: UIImage? = nil, initals: String = "?")` to `public init(image: UIImage? = nil, initials: String = "?")`. 
+[#298](https://github.com/MessageKit/MessageKit/issues/298) by [@sidmclaughlin](https://github.com/sidmclaughlin).
+
+- Fixed `MessageInputBar`'s `translucent` functionality.
+[#348](https://github.com/MessageKit/MessageKit/pull/348) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+- Fixes infinite loop when dismissing keyboard on iPhone X.
 [#350](https://github.com/MessageKit/MessageKit/pull/350) by [@nathantannar4](https://github.com/nathantannar4).
+
+- Fixed incorrect sizing of `cellTopLabel` and `cellBottomLabel`.
+[#371](https://github.com/MessageKit/MessageKit/pull/371/commits/949796d68d175d2f2c8700ed0cb769935aee2184) by [@SD10](https://github.com/sd10).
+
+### Removed
+
+- **Breaking Change** Removed `AvatarAlignment` and `avatarAlignment(for:at:in)` delegate method
+in favor of new `AvatarPosition` representing both vertical and horizontal alignments.
+[#322](https://github.com/MessageKit/MessageKit/pull/322) by [@SD10](https://github.com/sd10).
+
+- **Breaking Change** Removed the `avatarAlwaysLeading` and `avatarAlwaysTrailing` properties of `MessagesCollectionViewFlow$
+[#322](https://github.com/MessageKit/MessageKit/pull/322) by [@SD10](https://github.com/sd10).
+
+- **Breaking Change** Removed `LocationMessageDisplayDelegate` & `TextMessageDisplayDelegate` and moved their methods
+into the `MessagesDisplayDelegate` protocol. Removed `LocationMessageLayoutDelegate` & `MediaMessageLayoutDelegate` and
+moved their methods into the `MessagesLayoutDelegate` protocol.
+[#363](https://github.com/MessageKit/MessageKit/pull/363) by [@SD10](https://github.com/sd10).
 
 ## [[Prerelease] 0.10.2](https://github.com/MessageKit/MessageKit/releases/tag/0.10.2)
 

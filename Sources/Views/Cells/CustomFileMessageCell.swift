@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class CustomFileMessageCell: MessageCollectionViewCell<UIView> {
+open class CustomFileMessageCell: MessageCollectionViewCell {
     open override class func reuseIdentifier() -> String { return "messagekit.cell.customfilemessage" }
 
     // MARK: - Properties
@@ -27,10 +27,10 @@ open class CustomFileMessageCell: MessageCollectionViewCell<UIView> {
 
     // MARK: - Methods
 
-    override func setupSubviews() {
+    override open func setupSubviews() {
         super.setupSubviews()
-        messageContentView.addSubview(customIconView)
-        messageContentView.addSubview(customLabel)
+        messageContainerView.addSubview(customIconView)
+        messageContainerView.addSubview(customLabel)
     }
 
     open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
@@ -46,13 +46,13 @@ open class CustomFileMessageCell: MessageCollectionViewCell<UIView> {
 
         switch message.data {
         case .customFile(let icon, let attributedText):
-            customIconView.frame = UIEdgeInsetsInsetRect(messageContentView.bounds, imageInset)
+            customIconView.frame = UIEdgeInsetsInsetRect(messageContainerView.bounds, imageInset)
             customIconView.frame.size = CGSize(width: customIconView.bounds.height, height: customIconView.bounds.height)
             customIconView.image = icon
             customLabel.frame = CGRect(
                 x: customIconView.bounds.width + 20.0,
                 y: customIconView.frame.origin.y,
-                width: messageContentView.bounds.width - customIconView.bounds.width - 35.0,
+                width: messageContainerView.bounds.width - customIconView.bounds.width - 35.0,
                 height: customIconView.bounds.height
             )
             customLabel.attributedText = attributedText
