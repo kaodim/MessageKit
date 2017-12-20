@@ -410,6 +410,9 @@ extension ConversationViewController: MessageCellDelegate {
         print("Bottom label tapped")
     }
 
+    func didTapCellContent(in cell: MessageCollectionViewCell) {
+        print("Cell content tapped")
+    }
 }
 
 // MARK: - MessageLabelDelegate

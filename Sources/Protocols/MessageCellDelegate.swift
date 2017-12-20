@@ -67,6 +67,12 @@ public protocol MessageCellDelegate: MessageLabelDelegate {
     /// method `messageForItem(at:indexPath:messagesCollectionView)`.
     func didTapTopLabel(in cell: MessageCollectionViewCell)
 
+    /// Trigerred when a touch occures in cell content.
+    ///
+    /// - Parameter cell: The cell where the touch occurred.
+    /// `indexPath(for: cell)` method. Then using the returned `IndexPath` with the `MessagesDataSource`
+    /// method `messageForItem(at:indexPath:messagesCollectionView)`.
+    func didTapCellContent(in cell: MessageCollectionViewCell)
 }
 
 public extension MessageCellDelegate {
@@ -79,4 +85,5 @@ public extension MessageCellDelegate {
 
     func didTapTopLabel(in cell: MessageCollectionViewCell) {}
 
+    func didTapCellContent(in cell: MessageCollectionViewCell) {}
 }
