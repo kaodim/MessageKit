@@ -378,8 +378,27 @@ extension ConversationViewController: MessagesLayoutDelegate {
     }
 
     func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
-
         return CGSize(width: messagesCollectionView.bounds.width, height: 10)
+    }
+
+    func headerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
+        if indexPath.section == 3 {
+            return CGSize(width: messagesCollectionView.bounds.width, height: 20.0)
+        } else {
+            return .zero
+        }
+    }
+
+    func messageLineHeaderViewAttributedText(at indexPath: IndexPath) -> NSAttributedString? {
+        if indexPath.section == 3 {
+            return NSAttributedString(string: "99+ New Messages", attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray,
+                NSAttributedStringKey.backgroundColor: UIColor.white
+            ])
+        } else {
+            return nil
+        }
     }
 
     // MARK: - Location Messages

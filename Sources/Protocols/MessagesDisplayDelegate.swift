@@ -59,10 +59,11 @@ public protocol MessagesDisplayDelegate: AnyObject {
     /// - Parameters:
     ///   - message: The `MessageType` that will be displayed for this header.
     ///   - indexPath: The `IndexPath` of the header.
+    ///   - attributedText: `NSAttributedString` of the header.
     ///   - messagesCollectionView: The `MessagesCollectionView` in which this header will be displayed.
     ///
     /// The default value returned by this method is a `MessageDateHeaderView`.
-    func messageHeaderView(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageHeaderView
+    func messageHeaderView(for message: MessageType, attributedText: NSAttributedString?, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageHeaderView
 
     /// Used by the `MessageLayoutDelegate` method `headerViewSize(_:_:_:)` to determine if a header should be displayed.
     /// This method checks `MessageCollectionView`'s `showsDateHeaderAfterTimeInterval` property and returns true if
@@ -173,10 +174,10 @@ public extension MessagesDisplayDelegate {
             return dataSource.isFromCurrentSender(message: message) ? .outgoingGreen : .incomingGray
         }
     }
-    
-    func messageHeaderView(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageHeaderView {
-        let header = messagesCollectionView.dequeueReusableHeaderView(MessageDateHeaderView.self, for: indexPath)
-        header.dateLabel.text = MessageKitDateFormatter.shared.string(from: message.sentDate)
+
+    func messageHeaderView(for message: MessageType, attributedText: NSAttributedString?, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageHeaderView {
+        let header = messagesCollectionView.dequeueReusableHeaderView(MessageLineHeaderView.self, for: indexPath)
+        header.configure(attributedText: attributedText)
         return header
     }
 

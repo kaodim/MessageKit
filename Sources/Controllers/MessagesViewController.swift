@@ -123,6 +123,7 @@ open class MessagesViewController: UIViewController {
         messagesCollectionView.register(MessageFooterView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter)
         messagesCollectionView.register(MessageHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
         messagesCollectionView.register(MessageDateHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
+        messagesCollectionView.register(MessageLineHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
 
     }
 
@@ -272,7 +273,9 @@ extension MessagesViewController: UICollectionViewDataSource {
 
         switch kind {
         case UICollectionElementKindSectionHeader:
-            return displayDelegate.messageHeaderView(for: message, at: indexPath, in: messagesCollectionView)
+            /// Return line header view
+            let headerAttributedText = dataSource.messageLineHeaderViewAttributedText(at: indexPath)
+            return displayDelegate.messageHeaderView(for: message, attributedText: headerAttributedText, at: indexPath, in: messagesCollectionView)
         case UICollectionElementKindSectionFooter:
             return displayDelegate.messageFooterView(for: message, at: indexPath, in: messagesCollectionView)
         default:
