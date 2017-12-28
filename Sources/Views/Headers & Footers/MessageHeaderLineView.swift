@@ -29,19 +29,21 @@ open class MessageLineHeaderView: MessageHeaderView {
         titleLabel.textColor = .darkGray
         addSubview(titleLabel)
 
+        let lineColor = UIColor(red: 0.9, green: 0.91, blue: 0.91, alpha: 1)
+        
         leadingLineView.translatesAutoresizingMaskIntoConstraints = false
-        leadingLineView.backgroundColor = UIColor.lightGray
+        leadingLineView.backgroundColor = lineColor
         addSubview(leadingLineView)
 
         trailingLineView.translatesAutoresizingMaskIntoConstraints = false
-        trailingLineView.backgroundColor = UIColor.lightGray
+        trailingLineView.backgroundColor = lineColor
         addSubview(trailingLineView)
     }
 
     open override func layoutSubviews() {
         super.layoutSubviews()
 
-        let lineHeight: CGFloat = 2.0
+        let lineHeight: CGFloat = 1.0
 
         NSLayoutConstraint.activate([
             titleLabel.heightAnchor.constraint(equalToConstant: bounds.height),
