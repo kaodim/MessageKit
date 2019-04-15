@@ -55,6 +55,18 @@ final class SampleData {
         "Price is rarely the most important thing. A cheap product might sell some units. Somebody gets it home and they feel great when they pay the money, but then they get it home and use it and the joy is gone."
     ]
 
+    let messagePhotoDescriptions = [
+        "This is a short photo description.",
+        "This is a long photo description. Price is rarely the most important thing. A cheap product might sell some units. Somebody gets it home and they feel great when they pay the money, but then they get it home and use it and the joy is gone",
+        "This is a long photo description with new line.\nYou know, this iPhone, as a matter of fact, the engine in here is made in America. And not only are the engines in here made in America, but engines are made in America and are exported."
+    ]
+
+    let messageImageURLs: [URL] = [
+        URL(string: "https://mediaindia.eu/wp-content/uploads/2017/09/shinjuku.jpg")!,
+        URL(string: "https://my.staging.kaodim.com/attachments/7a778d7433922e57e08d3756bd8c28c328333e15/store/fit/600/420/64fd78d9e366e876988c486d8428ef35ce4683559bb64d9b8caad00e570d/attachment.jpeg")!,
+        URL(string: "https://my.staging.kaodim.com/attachments/b90e2b762ddddd46cc95dad3dafd069bb14893d5/store/fit/600/420/b0ce5d3f066ab5863063600558efe0e474deb949ec1ed17347ba992a3d84/attachment.jpeg")!
+    ]
+
     let dan = Sender(id: "123456", displayName: "Dan Leonard")
     let steven = Sender(id: "654321", displayName: "Steven")
     let jobs = Sender(id: "000001", displayName: "Steve Jobs")
@@ -70,9 +82,11 @@ final class SampleData {
 
     var now = Date()
 
-    let messageTypes = ["Text", "Text", "Text", "AttributedText", "Photo", "Video", "Location", "Emoji"]
+    let messageTypes = ["CustomPhoto", "CustomLocation", "CustomPhotoText", "CustomLocationText", "CustomFile"]
 
     let attributes = ["Font1", "Font2", "Font3", "Font4", "Color", "Combo"]
+
+    let fileNames = ["file_1.pdf", "file2.pptx", "file_improtant_with_long_message_text.pdf"]
 
     let locations: [CLLocation] = [
         CLLocation(latitude: 37.3118, longitude: -122.0312),
@@ -144,31 +158,47 @@ final class SampleData {
     func randomMessage() -> MockMessage {
 
         let randomNumberSender = Int(arc4random_uniform(UInt32(senders.count)))
-        let randomNumberText = Int(arc4random_uniform(UInt32(messageTextValues.count)))
         let randomNumberImage = Int(arc4random_uniform(UInt32(messageImages.count)))
         let randomMessageType = Int(arc4random_uniform(UInt32(messageTypes.count)))
+        let randomPhotoDesc = Int(arc4random_uniform(UInt32(messagePhotoDescriptions.count)))
         let randomNumberLocation = Int(arc4random_uniform(UInt32(locations.count)))
-        let randomNumberEmoji = Int(arc4random_uniform(UInt32(emojis.count)))
+        let randomFileName = Int(arc4random_uniform(UInt32(fileNames.count)))
+        let randomImageURL = Int(arc4random_uniform(UInt32(messageImageURLs.count)))
         let uniqueID = NSUUID().uuidString
         let sender = senders[randomNumberSender]
         let date = dateAddingRandomTime()
 
         switch messageTypes[randomMessageType] {
-        case "Text":
-            return MockMessage(text: messageTextValues[randomNumberText], sender: sender, messageId: uniqueID, date: date)
-        case "AttributedText":
-            let attributedText = attributedString(with: messageTextValues[randomNumberText])
-            return MockMessage(attributedText: attributedText, sender: senders[randomNumberSender], messageId: uniqueID, date: date)
-        case "Photo":
-            let image = messageImages[randomNumberImage]
-            return MockMessage(image: image, sender: sender, messageId: uniqueID, date: date)
-        case "Video":
-            let image = messageImages[randomNumberImage]
-            return MockMessage(thumbnail: image, sender: sender, messageId: uniqueID, date: date)
-        case "Location":
-            return MockMessage(location: locations[randomNumberLocation], sender: sender, messageId: uniqueID, date: date)
-        case "Emoji":
-            return MockMessage(emoji: emojis[randomNumberEmoji], sender: sender, messageId: uniqueID, date: date)
+        case "CustomPhoto":
+            let imageURL = messageImageURLs[randomImageURL]
+            return MockMessage(imageURL: imageURL, attributedText: nil, sender: sender, messageId: uniqueID, date: date)
+        case "CustomLocation":
+            let location = locations[randomNumberLocation]
+            return MockMessage(location: location, attributedText: nil, sender: sender, messageId: uniqueID, date: date)
+        case "CustomPhotoText":
+            let imageURL = messageImageURLs[randomImageURL]
+            let description = messagePhotoDescriptions[randomPhotoDesc]
+            let attributedText = NSAttributedString(string: description, attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray,
+            ])
+            return MockMessage(imageURL: imageURL, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
+        case "CustomLocationText":
+            let location = locations[randomNumberLocation]
+            let description = messagePhotoDescriptions[randomPhotoDesc]
+            let attributedText = NSAttributedString(string: description, attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray,
+            ])
+            return MockMessage(location: location, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
+        case "CustomFile":
+            let fileName = fileNames[randomFileName]
+            let icon = messageImages[randomNumberImage]
+            let attributedText = NSAttributedString(string: fileName, attributes: [
+                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13.0),
+                NSAttributedStringKey.foregroundColor: UIColor.darkGray
+            ])
+            return MockMessage(icon: icon, attributedText: attributedText, sender: sender, messageId: uniqueID, date: date)
         default:
             fatalError("Unrecognized mock message type")
         }
@@ -185,11 +215,11 @@ final class SampleData {
     func getAvatarFor(sender: Sender) -> Avatar {
         switch sender {
         case dan:
-            return Avatar(image: #imageLiteral(resourceName: "Dan-Leonard"), initals: "DL")
+            return Avatar(image: #imageLiteral(resourceName: "Dan-Leonard"), initials: "DL")
         case steven:
-            return Avatar(initals: "S")
+            return Avatar(initials: "S")
         case jobs:
-            return Avatar(image: #imageLiteral(resourceName: "Steve-Jobs"), initals: "SJ")
+            return Avatar(image: #imageLiteral(resourceName: "Steve-Jobs"), initials: "SJ")
         case cook:
             return Avatar(image: #imageLiteral(resourceName: "Tim-Cook"))
         default:

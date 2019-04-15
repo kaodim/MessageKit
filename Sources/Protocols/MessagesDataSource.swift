@@ -24,7 +24,7 @@
 
 import UIKit
 
-public protocol MessagesDataSource: class {
+public protocol MessagesDataSource: AnyObject {
 
     /// The `Sender` of new messages in the `MessagesCollectionView`.
     func currentSender() -> Sender
@@ -81,6 +81,13 @@ public protocol MessagesDataSource: class {
     /// The default value returned by this method is `nil`.
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString?
 
+
+    /// The attributed text to be used for cell's header label.
+    ///
+    /// - Parameters:
+    ///   - indexPath: The `IndexPath` of the cell.
+    /// - Returns: The `MessagesCollectionView` in which this cell will be displayed.
+    func messageLineHeaderViewAttributedText(at indexPath: IndexPath) -> NSAttributedString?
 }
 
 public extension MessagesDataSource {
@@ -101,4 +108,7 @@ public extension MessagesDataSource {
         return nil
     }
 
+    func messageLineHeaderViewAttributedText(at indexPath: IndexPath) -> NSAttributedString? {
+        return nil
+    }
 }

@@ -52,6 +52,18 @@ public enum MessageData {
     /// An emoji message.
     case emoji(String)
 
+    /// A photo with text
+    case customPhoto(UIImage, NSAttributedString?)
+
+    /// A location with text
+    case customLocation(CLLocation, NSAttributedString?)
+
+    /// A file with text
+    case customFile(UIImage, NSAttributedString)
+
+    /// An image from URL
+    case customImage(URL, NSAttributedString?)
+
     // MARK: - Not supported yet
 
 //    case audio(Data)
