@@ -66,6 +66,8 @@ public enum MessageStyle {
 
     case none
     case bubble
+    case senderCustombubble
+    case receiverCustombubble
     case bubbleOutline(UIColor)
     case bubbleTail(TailCorner, TailStyle)
     case bubbleTailOutline(UIColor, TailCorner, TailStyle)
@@ -82,14 +84,16 @@ public enum MessageStyle {
         switch self {
         case .none, .custom:
             return nil
+        case .senderCustombubble,.receiverCustombubble:
+            break
         case .bubble, .bubbleOutline:
             break
         case .bubbleTail(let corner, _), .bubbleTailOutline(_, let corner, _):
             guard let cgImage = image.cgImage else { return nil }
             image = UIImage(cgImage: cgImage, scale: image.scale, orientation: corner.imageOrientation)
         }
-
-        return stretch(image).withRenderingMode(.alwaysTemplate)
+        let customImage  = stretch(image).withRenderingMode(.alwaysTemplate)
+        return customImage
     }
 
     // MARK: - Private
@@ -106,6 +110,10 @@ public enum MessageStyle {
             return "bubble_outlined" + tailStyle.imageNameSuffix
         case .none, .custom:
             return nil
+        case .senderCustombubble:
+             return "sent_bubble"
+        case .receiverCustombubble:
+             return "incoming_bubble"
         }
     }
 
@@ -114,6 +122,7 @@ public enum MessageStyle {
         let assetBundle = Bundle.messageKitAssetBundle()
         return assetBundle.path(forResource: imageName, ofType: "png", inDirectory: "Images")
     }
+
 
     private func stretch(_ image: UIImage) -> UIImage {
         let center = CGPoint(x: image.size.width / 2, y: image.size.height / 2)

@@ -18,7 +18,7 @@ open class CustomLocationMessageCell: MessageCollectionViewCell {
     private lazy var customImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .clear
-        view.layer.cornerRadius = 15.0
+
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
         return view
@@ -28,6 +28,7 @@ open class CustomLocationMessageCell: MessageCollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.isUserInteractionEnabled = true
+        label.layer.cornerRadius = 18.0
         return label
     }()
     
@@ -51,13 +52,8 @@ open class CustomLocationMessageCell: MessageCollectionViewCell {
     open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         super.configure(with: message, at: indexPath, and: messagesCollectionView)
 
-        let isFromCurrentSender = messagesCollectionView.messagesDataSource?.isFromCurrentSender(message: message) ?? false
-        let imageInset: UIEdgeInsets
-        if isFromCurrentSender {
-            imageInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 10.0)
-        } else {
-            imageInset = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 5.0)
-        }
+        let imageInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+
 
         switch message.data {
         case .customLocation(let location, let attributedText):

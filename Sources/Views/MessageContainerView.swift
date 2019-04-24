@@ -48,7 +48,7 @@ open class MessageContainerView: UIImageView {
         switch style {
         case .none, .custom:
             break
-        case .bubble, .bubbleTail:
+        case .bubble, .bubbleTail, .senderCustombubble,.receiverCustombubble:
             imageMask.frame = bounds
         case .bubbleOutline, .bubbleTailOutline:
             imageMask.frame = bounds.insetBy(dx: 1.0, dy: 1.0)
@@ -57,7 +57,7 @@ open class MessageContainerView: UIImageView {
 
     private func applyMessageStyle() {
         switch style {
-        case .bubble, .bubbleTail:
+        case .bubble, .bubbleTail,.senderCustombubble,.receiverCustombubble:
             imageMask.image = style.image
             sizeMaskToView()
             mask = imageMask

@@ -56,13 +56,8 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell {
 
         activityIndicator.startAnimating()
 
-        let isFromCurrentSender = messagesCollectionView.messagesDataSource?.isFromCurrentSender(message: message) ?? false
-        let imageInset: UIEdgeInsets
-        if isFromCurrentSender {
-            imageInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 10.0)
-        } else {
-            imageInset = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 5.0)
-        }
+   
+        let imageInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
 
         switch message.data {
         case .customPhoto(let image, let attributedText):
