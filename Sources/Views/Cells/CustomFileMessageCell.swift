@@ -39,9 +39,9 @@ open class CustomFileMessageCell: MessageCollectionViewCell {
         let isFromCurrentSender = messagesCollectionView.messagesDataSource?.isFromCurrentSender(message: message) ?? false
         let imageInset: UIEdgeInsets
         if isFromCurrentSender {
-            imageInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 15.0)
+            imageInset = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 15.0)
         } else {
-            imageInset = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 5.0)
+            imageInset = UIEdgeInsets(top: 20.0, left: 15.0, bottom: 20.0, right: 10.0)
         }
 
         switch message.data {
