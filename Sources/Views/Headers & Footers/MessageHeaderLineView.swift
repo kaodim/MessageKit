@@ -24,7 +24,7 @@ open class MessageLineHeaderView: MessageHeaderView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
-        titleLabel.textColor = UIColor.kaoColor(0x9b9b9b)
+        titleLabel.textColor = UIColor.color(0x9b9b9b)
         titleLabel.backgroundColor = .clear
         addSubview(titleLabel)
     }
@@ -32,7 +32,7 @@ open class MessageLineHeaderView: MessageHeaderView {
     open override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.backgroundColor = UIColor.kaoColor(0xf2f2f2)
+        self.backgroundColor = UIColor.color(0xf2f2f2)
         NSLayoutConstraint.activate([
             titleLabel.heightAnchor.constraint(equalToConstant: bounds.height + 26),
             titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50.0),
