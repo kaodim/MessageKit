@@ -40,7 +40,7 @@ extension UIColor {
 
 public extension UIColor {
 
-    class func kaoColor(_ customhex: UInt, alpha: CGFloat = 1.0) -> UIColor {
+    class func color(_ customhex: UInt, alpha: CGFloat = 1.0) -> UIColor {
         return UIColor(
             red: CGFloat((customhex & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((customhex & 0x00FF00) >> 8) / 255.0,
