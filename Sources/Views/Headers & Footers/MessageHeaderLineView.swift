@@ -13,9 +13,7 @@ open class MessageLineHeaderView: MessageHeaderView {
     // MARK: - Properties
 
     open let titleLabel = UILabel()
-    open let leadingLineView = UIView()
-    open let trailingLineView = UIView()
-    
+
     // MARK: - Initializers
 
     public override init(frame: CGRect) {
@@ -25,45 +23,21 @@ open class MessageLineHeaderView: MessageHeaderView {
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
-        titleLabel.font = .boldSystemFont(ofSize: 13.0)
-        titleLabel.textColor = .darkGray
+        titleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
+        titleLabel.textColor = UIColor.kaoColor(0x9b9b9b)
+        titleLabel.backgroundColor = .clear
         addSubview(titleLabel)
-
-        let lineColor = UIColor(red: 0.9, green: 0.91, blue: 0.91, alpha: 1)
-        
-        leadingLineView.translatesAutoresizingMaskIntoConstraints = false
-        leadingLineView.backgroundColor = lineColor
-        addSubview(leadingLineView)
-
-        trailingLineView.translatesAutoresizingMaskIntoConstraints = false
-        trailingLineView.backgroundColor = lineColor
-        addSubview(trailingLineView)
     }
 
     open override func layoutSubviews() {
         super.layoutSubviews()
 
-        let lineHeight: CGFloat = 1.0
-
+        self.backgroundColor = UIColor.kaoColor(0xf2f2f2)
         NSLayoutConstraint.activate([
-            titleLabel.heightAnchor.constraint(equalToConstant: bounds.height),
+            titleLabel.heightAnchor.constraint(equalToConstant: bounds.height + 26),
             titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50.0),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-        ])
-
-        NSLayoutConstraint.activate([
-            leadingLineView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            leadingLineView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -8.0),
-            leadingLineView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            leadingLineView.heightAnchor.constraint(equalToConstant: lineHeight)
-        ])
-
-        NSLayoutConstraint.activate([
-            trailingLineView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8.0),
-            trailingLineView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            trailingLineView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            trailingLineView.heightAnchor.constraint(equalToConstant: lineHeight)
-        ])
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor), titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -73,13 +47,9 @@ open class MessageLineHeaderView: MessageHeaderView {
     public func configure(attributedText: NSAttributedString?) {
         guard let attributedText = attributedText else {
             /// Hide the line
-            leadingLineView.isHidden = true
-            trailingLineView.isHidden = true
             titleLabel.attributedText = nil
             return
         }
-        leadingLineView.isHidden = false
-        trailingLineView.isHidden = false
         titleLabel.attributedText = attributedText
     }
 }
