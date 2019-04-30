@@ -21,20 +21,28 @@ open class MessageLineHeaderView: MessageHeaderView {
 
         backgroundColor = .clear
 
+        let masterContentView = UIView()
+        masterContentView.translatesAutoresizingMaskIntoConstraints = false
+        masterContentView.backgroundColor = UIColor.color(0xf2f2f2)
+        addSubview(masterContentView)
+        NSLayoutConstraint.activate([
+            masterContentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            masterContentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            //             contentView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: -16),
+            masterContentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            masterContentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15)
+            ])
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
         titleLabel.textColor = UIColor.color(0x9b9b9b)
         titleLabel.backgroundColor = .clear
-
-
         addSubview(titleLabel)
-
-        self.backgroundColor = UIColor.color(0xf2f2f2)
         NSLayoutConstraint.activate([
-            titleLabel.heightAnchor.constraint(equalToConstant: bounds.height),
+            titleLabel.heightAnchor.constraint(equalToConstant: 30),
             titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50.0),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor), titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: masterContentView.centerXAnchor), titleLabel.centerYAnchor.constraint(equalTo: masterContentView.centerYAnchor)
             ])
 
         let contentView = UIView()
@@ -46,8 +54,10 @@ open class MessageLineHeaderView: MessageHeaderView {
         NSLayoutConstraint.activate([
             contentView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -10),
             contentView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
-             contentView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: -16),
-            contentView.centerXAnchor.constraint(equalTo: centerXAnchor), contentView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            //             contentView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: -16),
+            contentView.topAnchor.constraint(equalTo: masterContentView.topAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: masterContentView.bottomAnchor, constant: -10)
+            //            contentView.centerXAnchor.constraint(equalTo: centerXAnchor), contentView.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
 
         self.bringSubview(toFront: titleLabel)
