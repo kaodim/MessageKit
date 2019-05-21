@@ -17,6 +17,7 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell {
         view.backgroundColor = .black
         view.layer.cornerRadius = 15.0
         view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
         view.isUserInteractionEnabled = true
         return view
     }()
@@ -85,6 +86,7 @@ open class CustomPhotoMessageCell: MessageCollectionViewCell {
             customImageView.frame = UIEdgeInsetsInsetRect(messageContainerView.bounds, imageInset)
             customImageView.downloadImageAsync(url: url, completion: {
                 self.activityIndicator.stopAnimating()
+                
             })
             customLabel.attributedText = attributedText
 
